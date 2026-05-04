@@ -1,0 +1,7 @@
+# Dépendances pour les scripts de benchmark (à installer localement)
+# pip install -r requirements_bench.txt
+
+locust>=2.20.0
+matplotlib>=3.7.0
+numpy>=1.24.0
+google-cloud-datastore>=2.19.0

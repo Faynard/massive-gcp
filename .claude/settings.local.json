@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gcloud auth *)",
+      "Bash(gcloud config *)",
+      "Bash(where gcloud *)",
+      "PowerShell(Get-Command gcloud -ErrorAction SilentlyContinue)",
+      "PowerShell(gcloud version 2>&1)",
+      "Bash(npm install *)",
+      "Read(//c/Users/thay/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/461aec71-8dd2-456a-b5af-0c01d7ab17e5/b8dc1c90-3b8f-4a24-9d5b-541eb08f304d/skills/docx/**)",
+      "Bash(node rapport.js)",
+      "Bash(npm list *)",
+      "Bash(node -e \"require\\('docx'\\)\")",
+      "Bash(node -e \"require\\('C:/Users/thay/AppData/Roaming/npm/node_modules/docx'\\); console.log\\('OK'\\)\")"
+    ]
+  }
+}

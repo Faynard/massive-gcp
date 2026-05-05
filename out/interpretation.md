@@ -2,6 +2,8 @@
 
 ## Expérience 1 — Concurrence
 
+![Temps moyen par requête selon la concurrence](./conc.png)
+
 | Users simultanés | Temps moyen |
 |---|---|
 | 1 | 196 ms |
@@ -22,6 +24,8 @@ Sur la concurrence : OUI, ça scale, jusqu'à ~100 utilisateurs simultanés avec
 ---
 
 ## Expérience 2 — Fanout
+
+![Temps moyen par requête selon le fanout](./fanout.png)
 
 | Followees | Temps moyen |
 |---|---|

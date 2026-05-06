@@ -73,9 +73,7 @@ def get_timeline(user: str, limit: int = 20):
 
 
 def seed_data(users: int = 5, posts: int = 30, follows_min: int = 1, follows_max: int = 3, prefix: str = 'user'):
-    """Crée des utilisateurs, leurs relations de suivi et des posts.
-    Retourne un dict avec les compteurs. Fait des écritures directes dans Datastore.
-    """
+    """Crée des utilisateurs, leurs relations de suivi et des posts."""
     user_names = [f"{prefix}{i}" for i in range(1, users + 1)]
     created_users = 0
     for name in user_names:
@@ -86,7 +84,6 @@ def seed_data(users: int = 5, posts: int = 30, follows_min: int = 1, follows_max
             entity['follows'] = []
             client.put(entity)
             created_users += 1
-    # Assign follows
     for name in user_names:
         key = client.key('User', name)
         entity = client.get(key)
@@ -98,7 +95,6 @@ def seed_data(users: int = 5, posts: int = 30, follows_min: int = 1, follows_max
         merged = sorted(set(entity.get('follows', [])).union(selection))
         entity['follows'] = merged
         client.put(entity)
-    # Posts
     created_posts = 0
     base_time = datetime.utcnow()
     for i in range(posts):
@@ -153,10 +149,6 @@ def api_timeline():
 
 @app.route('/admin/seed', methods=['POST'])
 def admin_seed():
-    """Endpoint pour exécuter un seed serveur-side.
-    Sécurité minimale: en-tête X-Seed-Token ou ?token= doit correspondre à SEED_TOKEN.
-    Paramètres (query string ou form): users, posts, follows_min, follows_max, prefix.
-    """
     expected = os.environ.get('SEED_TOKEN')
     provided = request.headers.get('X-Seed-Token') or request.args.get('token') or request.form.get('token')
     if expected and provided != expected:
@@ -176,6 +168,7 @@ def admin_seed():
     result = seed_data(users=users, posts=posts, follows_min=follows_min, follows_max=follows_max, prefix=prefix)
     return jsonify({'status': 'ok', **result})
 
+
 @app.route('/login', methods=['POST'])
 def login():
     username = request.form['username']
@@ -187,10 +180,12 @@ def login():
     session['user'] = username
     return redirect(url_for('index'))
 
+
 @app.route('/logout')
 def logout():
     session.pop('user', None)
     return redirect(url_for('index'))
+
 
 @app.route('/post', methods=['POST'])
 def post():
@@ -207,6 +202,7 @@ def post():
     client.put(entity)
     return redirect(url_for('index'))
 
+
 @app.route('/follow', methods=['POST'])
 def follow():
     user = session.get('user')
@@ -219,6 +215,7 @@ def follow():
         user_entity['follows'].append(to_follow)
         client.put(user_entity)
     return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
